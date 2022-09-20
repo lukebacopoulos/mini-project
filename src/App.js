@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './App.css';   // this is the file used for changing the ht
 import TwitterHandles from './TwitterHandles'
-import firebase from "firebase"
+
 import handles from './handles'
 
 function App() {
