@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { gapi } from 'gapi-script';
 import handles from './handles'
-
+import 
 
 
 function App() {
@@ -58,7 +58,11 @@ function App() {
                     isSignedIn={true}
                 />
             )}
-        </div>
+            </div>
+            <TwitterHandles handles={handles} />
+            <input type="text" />
+            <button> Search Handle</button>
+
         <div>
               <h1>Bot or Real</h1>
           </div>
