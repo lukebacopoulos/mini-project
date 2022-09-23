@@ -32,6 +32,7 @@ function App() {
         setProfile(null);
     };
 
+    
     return (
          <>
         <div>
@@ -71,7 +72,8 @@ function App() {
           </div>
           <div>
               <h1>Sentiment</h1>
-          </div>
+            </div>
+
         </>
 
     );
