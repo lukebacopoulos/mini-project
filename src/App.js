@@ -18,7 +18,7 @@ class App extends Component {
     }
 
     handleClick() {
-        let url = "http://127.0.0.1:5000/login?username=abcdef"
+        let url = "http://127.0.0.1:5000/login?username=KyrieIrving"
         axios.get(url)
             .then(function (response) {
                 let data = response.data
@@ -32,6 +32,7 @@ class App extends Component {
 
     render() {
         return (
+             <>
             <div className="App">
                 <header className="App-header">
                     <img src={logo} className="App-logo" alt="logo" />
@@ -41,7 +42,15 @@ class App extends Component {
                     To get started, edit <code>src/App.js</code> and save to reload.
                 </p>
                 <Button onClick={this.handleClick}>search for twitter</Button>
-            </div>
+
+                </div>
+                <div>
+                    <p>
+                     
+                    </p>
+                </div>
+            </>
+            
         );
     }
 }
