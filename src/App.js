@@ -1,114 +1,49 @@
-import './App.css';   // this is the file used for changing the ht
-import TwitterHandles from './TwitterHandles'
-import React, { useState, useEffect } from 'react';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
-import { gapi } from 'gapi-script';
-import handles from './handles'
+﻿import React, { Component } from 'react';
+import logo from './logo.svg';
+import './App.css';
+import axios from 'axios';
+
+import { Layout, Menu, Button, Breadcrumb, Icon } from 'antd';
+
+class App extends Component {
 
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            list: []
+        }
+        this.handleClick = this.handleClick.bind(this)
 
-function App() {
-    const [profile, setProfile] = useState([]);
-    const clientId = '386932037035-k8v833noqjk7m4auae0t83vnkrqvvg3t.apps.googleusercontent.com';
-    useEffect(() => {
-        const initClient = () => {
-            gapi.client.init({
-                clientId: clientId,
-                scope: ''
-            });
-        };
-        gapi.load('client:auth2', initClient);
-    });
+    }
 
-    const onSuccess = (res) => {
-        setProfile(res.profileObj);
-    };
-
-    const onFailure = (err) => {
-        console.log('failed', err);
-    };
-
-    const logOut = () => {
-        setProfile(null);
-    };
-    // api
-    const [data, setdata] = useState({
-        name: "",
-        age: 0,
-        date: "",
-        programming: "",
-    });
-    useEffect(() => {
-        // Using fetch to fetch the api from 
-        // flask server it will be redirected to proxy
-        fetch("/data").then((res) =>
-            res.json().then((data) => {
-                // Setting a data from api
-                setdata({
-                    name: data.Name,
-                    age: data.Age,
-                    date: data.Date,
-                    programming: data.programming,
-                });
+    handleClick() {
+        let url = "http://127.0.0.1:5000/login?username=abcdef"
+        axios.get(url)
+            .then(function (response) {
+                let data = response.data
+                alert(data);
             })
-        );
-    }, []);
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
 
-    
-    return (
-         <>
-        <div>
-            <h2>React Google Login</h2>
-            <br />
-            <br />
-            {profile ? (
-                <div>
-                    <img src={profile.imageUrl} alt="user image" />
-                    <h3>User Logged in</h3>
-                    <p>Name: {profile.name}</p>
-                    <p>Email Address: {profile.email}</p>
-                    <br />
-                    <br />
-                    <GoogleLogout clientId={clientId} buttonText="Log out" onLogoutSuccess={logOut} />
-                </div>
-            ) : (
-                <GoogleLogin
-                    clientId={clientId}
-                    buttonText="Sign in with Google"
-                    onSuccess={onSuccess}
-                    onFailure={onFailure}
-                    cookiePolicy={'single_host_origin'}
-                    isSignedIn={true}
-                />
-            )}
-            </div>
-            <TwitterHandles handles={handles} />
-            <input type="text" />
-            <button> Search Handle</button>
 
-        <div>
-              <h1>Bot or Real</h1>
-          </div>
-          <div>
-              <h1>Main Topic</h1>
-          </div>
-          <div>
-              <h1>Sentiment</h1>
-            </div>
-
+    render() {
+        return (
             <div className="App">
                 <header className="App-header">
-                    <h1>React and flask</h1>
-                    {/* Calling a data from setdata for showing */}
-                    <p>{data.name}</p>
-                    <p>{data.age}</p>
-                    <p>{data.date}</p>
-                    <p>{data.programming}</p>
-
+                    <img src={logo} className="App-logo" alt="logo" />
+                    <h1 className="App-title">Welcome to React</h1>
                 </header>
+                <p className="App-intro">
+                    To get started, edit <code>src/App.js</code> and save to reload.
+                </p>
+                <Button onClick={this.handleClick}>search for twitter</Button>
             </div>
-        </>
-
-    );
+        );
+    }
 }
+
 export default App;
