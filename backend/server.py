@@ -5,6 +5,38 @@ from flask import Flask, render_template, request, make_response, jsonify, redir
 import requests
 import os
 import json
+import botometer
+import tweepy as tw 
+my_api_key = "Dz9ACU3Urp1ynBZ4730uWbPEm";
+my_api_secret = "405TgoVjxfiYynmiJQvspCDGBWXaRJOiIKE9me1Lb7m7TDUYgb";
+auth = tw.OAuthHandler(my_api_key, my_api_secret)
+api = tw.API(auth, wait_on_rate_limit=True)
+
+search_query = "@KyrieIrving";
+tweets = tw.Cursor(api.search,
+              q=search_query,
+              lang="en",
+              since="2020-09-16").items(50)
+tweets_copy=[];
+for tweet in tweets:
+    tweets_copy.append(tweet)
+
+#print(api.get_status(id=tweet.id, tweet_mode='extended').full_text);
+
+#rapidapi_key = "622309e583msh5b2a10deeab0445p1135f1jsna197ab950dcc"
+#twitter_app_auth = {
+#    'consumer_key': 'Dz9ACU3Urp1ynBZ4730uWbPEm',
+#    'consumer_secret': '405TgoVjxfiYynmiJQvspCDGBWXaRJOiIKE9me1Lb7m7TDUYgb',
+#    'access_token': '1569461659487600641-bLKNe5yY4ok1Pby4byqCc0rDfab6TU',
+#    'access_token_secret': '6VkaJxAghcWXPk4eZ6gDGlb3VMrn09eiN7md8URjwliz3',
+#  }
+#bom = botometer.Botometer(wait_on_ratelimit=True,
+#                          rapidapi_key=rapidapi_key,
+#                          **twitter_app_auth)
+
+# Check a single account by screen name
+#result = bom.check_account('@clayadavis')
+#print(result);
 
 
 bearer_token = "AAAAAAAAAAAAAAAAAAAAABgPhAEAAAAA9lRkuEbxjkaNynlZbod17t4OkzU%3DDVpStDdxPwwHomYeaW4JvYKRJpdHfpvuOjkWiXTL8E89D3KrUI"
@@ -42,7 +74,7 @@ def connect_to_endpoint(url):
 
 
 
-server = flask.Flask(__name__) #创建一个flask对象
+server = flask.Flask(__name__) 
 CORS(server)
 @server.route('/login', methods=['get','post'])
 def login():

@@ -2,8 +2,11 @@
 import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
-
+import TwitterHandles from './TwitterHandles'
 import { Layout, Menu, Button, Breadcrumb, Icon } from 'antd';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import { gapi } from 'gapi-script';
+import handles from './handles'
 
 class App extends Component {
 
@@ -17,12 +20,14 @@ class App extends Component {
 
     }
 
+
+
     handleClick() {
         let url = "http://127.0.0.1:5000/login?username=KyrieIrving"
         axios.get(url)
             .then(function (response) {
                 let data = response.data
-                alert(data);
+                alert(JSON.stringify(data));
             })
             .catch(function (error) {
                 console.log(error);
@@ -32,7 +37,10 @@ class App extends Component {
 
     render() {
         return (
-             <>
+            <>
+
+                <TwitterHandles handles={handles} />
+                <input type="text" />
             <div className="App">
                 <header className="App-header">
                     <img src={logo} className="App-logo" alt="logo" />
@@ -44,11 +52,7 @@ class App extends Component {
                 <Button onClick={this.handleClick}>search for twitter</Button>
 
                 </div>
-                <div>
-                    <p>
-                     
-                    </p>
-                </div>
+
             </>
             
         );
